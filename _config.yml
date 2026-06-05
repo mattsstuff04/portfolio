@@ -1,5 +1,8 @@
-name: Matthieu Banks
+title: Matthieu Banks
 markdown: kramdown
 
 url: "https://mattsstuff04.github.io"
 baseurl: "/portfolio" 
+theme: null
+url: "https://mattsstuff04.github.io"
+
