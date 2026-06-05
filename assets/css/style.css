@@ -1,3 +1,180 @@
+/* RESET & BASE */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background: #f5f7fb;
+    font-family: 'Helvetica', 'Arial', 'Sans-Serif';
+    display: flex;
+    min-height: 100vh;
+}
+
+/* ===== BLUE GRADIENT SIDEBAR ===== */
+.sidebar {
+    width: 280px;
+    background: linear-gradient(135deg, #0b3b5f, #1c6e8f, #2a9d8f);
+    color: white;
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    padding: 2rem 1.5rem;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 4px 0 20px rgba(0, 0, 0, 0.1);
+    z-index: 100;
+}
+
+/* Logo area at top of sidebar */
+.logo-area {
+    text-align: center;
+    margin-bottom: 3rem;
+    padding-bottom: 1rem;
+    border-bottom: 2px solid rgba(255, 255, 255, 0.3);
+}
+
+.logo-area h2 {
+    font-size: 1.8rem;
+    letter-spacing: 2px;
+    margin-bottom: 0.5rem;
+}
+
+.logo-area p {
+    font-size: 0.8rem;
+    opacity: 0.9;
+    color: white;
+    margin: 0;
+}
+
+/* Navigation inside sidebar */
+.sidebar nav ul {
+    list-style: none;
+    padding: 0;
+}
+
+.sidebar nav ul li {
+    margin: 1.2rem 0;
+    display: block;
+}
+
+.sidebar nav ul li a {
+    color: white;
+    text-decoration: none;
+    font-size: 1.2rem;
+    font-weight: bold;
+    display: block;
+    padding: 0.6rem 1rem;
+    border-radius: 30px;
+    transition: all 0.3s ease;
+}
+
+.sidebar nav ul li a:hover {
+    background: rgba(255, 255, 255, 0.2);
+    text-decoration: none;
+    padding-left: 1.5rem;
+}
+
+/* ===== MAIN CONTENT AREA ===== */
+.main-content {
+    margin-left: 280px;
+    padding: 2rem 3rem;
+    width: calc(100% - 280px);
+}
+
+/* Container for page content */
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+/* Headings */
+h1 {
+    font-size: 3em;
+    color: #1e2a3e;
+    margin-bottom: 1rem;
+}
+
+/* Paragraphs */
+p {
+    font-size: 1.2em;
+    line-height: 1.6em;
+    color: #333;
+    margin-bottom: 1rem;
+}
+
+/* Footer inside main content */
+footer {
+    margin-top: 3rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid #d5d5d5;
+    font-size: 0.9em;
+    text-align: center;
+}
+
+footer ul {
+    list-style: none;
+    padding: 0;
+}
+
+footer ul li {
+    display: inline;
+    margin-right: 20px;
+}
+
+footer ul li a {
+    color: #999;
+    text-decoration: none;
+}
+
+footer ul li a:hover {
+    text-decoration: underline;
+}
+
+/* Blog posts list */
+ul.posts {
+    margin: 20px auto 40px;
+    font-size: 1.3em;
+    list-style: none;
+}
+
+ul.posts li {
+    list-style: none;
+    margin-bottom: 0.8rem;
+}
+
+/* Responsive: on smaller screens, sidebar becomes top bar */
+@media (max-width: 768px) {
+    .sidebar {
+        width: 100%;
+        height: auto;
+        position: relative;
+        flex-direction: row;
+        flex-wrap: wrap;
+        padding: 1rem;
+    }
+    
+    .logo-area {
+        margin-bottom: 0;
+        border-bottom: none;
+        padding-bottom: 0;
+        width: 100%;
+        text-align: center;
+    }
+    
+    .sidebar nav ul li {
+        display: inline-block;
+        margin: 0 0.5rem;
+    }
+    
+    .main-content {
+        margin-left: 0;
+        width: 100%;
+        padding: 1.5rem;
+    }
+}
 /* For laundromat demo page – full width override */
 .laundromat-demo {
     width: 100%;
