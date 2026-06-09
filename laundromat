@@ -1,0 +1,592 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>Jb's Laundry - Monthly Wash Plans</title>
+    <!-- Font Awesome 6 (free) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <!-- Stripe JS for future integration -->
+    <script src="https://js.stripe.com/v3/"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background: #f4f7fc;
+            color: #1e2a3e;
+        }
+
+        /* Navbar */
+        .navbar {
+            background: #0b3b5f;
+            color: white;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .logo h2 {
+            font-size: 1.6rem;
+        }
+        .logo p {
+            font-size: 0.8rem;
+            opacity: 0.9;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 1.5rem;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .nav-links button, .nav-links .btn-outline {
+            background: transparent;
+            border: 1px solid white;
+            color: white;
+            padding: 0.4rem 1rem;
+            border-radius: 30px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: 0.2s;
+        }
+
+        .nav-links button:hover, .nav-links .btn-outline:hover {
+            background: white;
+            color: #0b3b5f;
+        }
+
+        .nav-links .btn-primary {
+            background: #f4a261;
+            border: none;
+            color: #1e2a3e;
+        }
+
+        .nav-links .btn-primary:hover {
+            background: #e76f51;
+            color: white;
+        }
+
+        /* Main container */
+        .container {
+            max-width: 1300px;
+            margin: 2rem auto;
+            padding: 0 1.5rem;
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, #0f4c5f, #1c6e8f);
+            color: white;
+            padding: 2.5rem;
+            border-radius: 30px;
+            margin-bottom: 2rem;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+        }
+        .hero h1 {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+        }
+        .hero-address {
+            font-size: 1.2rem;
+            margin: 0.8rem 0;
+            background: rgba(255,255,255,0.2);
+            display: inline-block;
+            padding: 0.5rem 1rem;
+            border-radius: 40px;
+        }
+        .hero p {
+            font-size: 1.1rem;
+            max-width: 600px;
+        }
+
+        /* Pricing Cards */
+        .plans {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 2rem;
+            justify-content: center;
+            margin: 2rem 0;
+        }
+        .card {
+            background: white;
+            border-radius: 28px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+            padding: 1.8rem;
+            width: 300px;
+            text-align: center;
+            transition: transform 0.2s;
+        }
+        .card:hover {
+            transform: translateY(-8px);
+        }
+        .card h3 {
+            font-size: 1.8rem;
+            color: #0b3b5f;
+        }
+        .price {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: #e76f51;
+            margin: 1rem 0;
+        }
+        .price span {
+            font-size: 1rem;
+            color: gray;
+        }
+        .card ul {
+            text-align: left;
+            margin: 1rem 0;
+            list-style: none;
+        }
+        .card li {
+            padding: 0.4rem 0;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .card li i {
+            color: #2a9d8f;
+            width: 22px;
+        }
+        .subscribe-btn {
+            background: #f4a261;
+            border: none;
+            padding: 0.8rem 1.2rem;
+            border-radius: 40px;
+            font-weight: bold;
+            width: 100%;
+            cursor: pointer;
+            font-size: 1rem;
+            margin-top: 1rem;
+            transition: 0.2s;
+        }
+        .subscribe-btn:hover {
+            background: #e76f51;
+            color: white;
+        }
+
+        /* Dashboard section */
+        .dashboard {
+            background: white;
+            border-radius: 30px;
+            padding: 2rem;
+            margin-top: 2rem;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+        }
+        .subscription-card {
+            background: #e9f0f5;
+            border-radius: 20px;
+            padding: 1.2rem;
+            margin: 1rem 0;
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+        .status-active {
+            background: #2a9d8f;
+            color: white;
+            padding: 0.2rem 1rem;
+            border-radius: 30px;
+            font-size: 0.8rem;
+        }
+        .status-cancelled {
+            background: #e63946;
+            color: white;
+            padding: 0.2rem 1rem;
+            border-radius: 30px;
+        }
+        button.small-btn {
+            background: #0b3b5f;
+            border: none;
+            padding: 0.4rem 1rem;
+            border-radius: 30px;
+            color: white;
+            cursor: pointer;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        .form-box {
+            background: white;
+            max-width: 500px;
+            margin: 2rem auto;
+            padding: 2rem;
+            border-radius: 28px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+        }
+
+        .form-box input {
+            width: 100%;
+            padding: 12px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 30px;
+        }
+
+        .form-box button {
+            width: 100%;
+            background: #0b3b5f;
+            color: white;
+            padding: 12px;
+            border: none;
+            border-radius: 30px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        footer {
+            text-align: center;
+            padding: 2rem;
+            background: #0b3b5f;
+            color: white;
+            margin-top: 2rem;
+        }
+
+        @media (max-width: 700px) {
+            .navbar {
+                flex-direction: column;
+                text-align: center;
+            }
+            .hero h1 {
+                font-size: 1.8rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<nav class="navbar">
+    <div class="logo">
+        <h2><i class="fas fa-tshirt"></i> Jb's Laundry</h2>
+        <p>Fresh & Clean • Chicago's Best</p>
+    </div>
+    <div class="nav-links" id="navLinks">
+        <!-- dynamic content from JS -->
+    </div>
+</nav>
+
+<div class="container" id="mainContent">
+    <!-- Homepage / Dashboard will be rendered dynamically -->
+</div>
+
+<footer>
+    <p>📍 1500 W Howard St, Chicago, IL 60626 | ☎️ (773) 555-0123 | ✉️ hello@jblaundry.com</p>
+    <p>&copy; 2025 Jb's Laundry - Monthly Wash Plans</p>
+</footer>
+
+<script>
+    // ---------- STORAGE KEYS ----------
+    const STORAGE_USERS = "jbLaundry_users";
+    const STORAGE_CURRENT_USER = "jbLaundry_currentUser";
+    const STORAGE_SUBSCRIPTIONS = "jbLaundry_subs";
+
+    // Pricing plans
+    const PLANS = {
+        basic: { name: "Basic Wash", price: 29.99, features: ["10 wash loads/month", "Basic detergent", "Dryer credit $5"] },
+        standard: { name: "Standard Wash", price: 49.99, features: ["25 wash loads/month", "Premium detergent", "Dryer credit $15", "Fold service (2x/mo)"] },
+        premium: { name: "Premium Wash", price: 89.99, features: ["Unlimited loads", "Eco detergent", "Dryer unlimited", "Free pick-up & drop-off", "Priority service"] }
+    };
+
+    // Helper: load users
+    function getUsers() {
+        let users = localStorage.getItem(STORAGE_USERS);
+        if (!users) {
+            // seed demo user (email: demo@jb.com / pass: demo123)
+            const defaultUsers = [
+                { email: "demo@jb.com", password: "demo123", name: "Demo User" }
+            ];
+            localStorage.setItem(STORAGE_USERS, JSON.stringify(defaultUsers));
+            return defaultUsers;
+        }
+        return JSON.parse(users);
+    }
+
+    function saveUsers(users) {
+        localStorage.setItem(STORAGE_USERS, JSON.stringify(users));
+    }
+
+    function getCurrentUser() {
+        return localStorage.getItem(STORAGE_CURRENT_USER);
+    }
+
+    function setCurrentUser(email) {
+        if (email) localStorage.setItem(STORAGE_CURRENT_USER, email);
+        else localStorage.removeItem(STORAGE_CURRENT_USER);
+    }
+
+    function getSubscriptions() {
+        let subs = localStorage.getItem(STORAGE_SUBSCRIPTIONS);
+        if (!subs) return {};
+        return JSON.parse(subs);
+    }
+
+    function saveSubscriptions(subs) {
+        localStorage.setItem(STORAGE_SUBSCRIPTIONS, JSON.stringify(subs));
+    }
+
+    function getUserSubscription(email) {
+        const subs = getSubscriptions();
+        return subs[email] || null;
+    }
+
+    function setUserSubscription(email, planId, status = "active", startDate = new Date().toISOString()) {
+        const subs = getSubscriptions();
+        subs[email] = { planId, status, startDate, nextBilling: new Date(Date.now() + 30*86400000).toISOString() };
+        saveSubscriptions(subs);
+    }
+
+    function cancelSubscription(email) {
+        const subs = getSubscriptions();
+        if (subs[email]) {
+            subs[email].status = "cancelled";
+            saveSubscriptions(subs);
+        }
+    }
+
+    // UI Rendering
+    function renderNav() {
+        const navDiv = document.getElementById("navLinks");
+        const currentEmail = getCurrentUser();
+        if (currentEmail) {
+            const users = getUsers();
+            const user = users.find(u => u.email === currentEmail);
+            const displayName = user ? user.name : currentEmail.split('@')[0];
+            navDiv.innerHTML = `
+                <span style="margin-right: 10px;">👋 Hello, ${displayName}</span>
+                <button id="dashboardBtn" class="btn-outline">Dashboard</button>
+                <button id="logoutBtn" class="btn-outline">Logout</button>
+            `;
+            document.getElementById("dashboardBtn")?.addEventListener("click", () => showDashboard());
+            document.getElementById("logoutBtn")?.addEventListener("click", logout);
+        } else {
+            navDiv.innerHTML = `
+                <button id="loginNavBtn" class="btn-outline">Login</button>
+                <button id="registerNavBtn" class="btn-primary">Sign Up</button>
+            `;
+            document.getElementById("loginNavBtn")?.addEventListener("click", () => showLoginForm());
+            document.getElementById("registerNavBtn")?.addEventListener("click", () => showRegisterForm());
+        }
+    }
+
+    function showHomepage() {
+        const container = document.getElementById("mainContent");
+        container.innerHTML = `
+            <div class="hero">
+                <h1><i class="fas fa-soap"></i> Jb's Laundry</h1>
+                <div class="hero-address"><i class="fas fa-map-marker-alt"></i> 1500 W Howard St, Chicago, IL 60626</div>
+                <p>Clean clothes, happy life. Monthly unlimited wash plans starting at $29.99. Sign up today and never worry about laundry again!</p>
+                <p><i class="fas fa-clock"></i> Open daily: 7am - 10pm | <i class="fas fa-wifi"></i> Free WiFi</p>
+            </div>
+            <h2 style="text-align: center; margin: 1rem 0;">💧 Choose Your Monthly Wash Plan</h2>
+            <div class="plans" id="plansContainer"></div>
+        `;
+        const plansDiv = document.getElementById("plansContainer");
+        plansDiv.innerHTML = Object.keys(PLANS).map(planId => {
+            const p = PLANS[planId];
+            return `
+                <div class="card">
+                    <h3>${p.name}</h3>
+                    <div class="price">$${p.price}<span>/month</span></div>
+                    <ul>
+                        ${p.features.map(f => `<li><i class="fas fa-check-circle"></i> ${f}</li>`).join('')}
+                    </ul>
+                    <button class="subscribe-btn" data-plan="${planId}">Subscribe Now</button>
+                </div>
+            `;
+        }).join('');
+        // attach subscribe events
+        document.querySelectorAll('.subscribe-btn').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                const planId = btn.getAttribute('data-plan');
+                handleSubscribe(planId);
+            });
+        });
+    }
+
+    function handleSubscribe(planId) {
+        const currentEmail = getCurrentUser();
+        if (!currentEmail) {
+            alert("Please login or create an account first.");
+            showLoginForm();
+            return;
+        }
+        const plan = PLANS[planId];
+        if (!plan) return;
+        // Simulate payment flow (stripe demo alert)
+        if (confirm(`You are subscribing to ${plan.name} for $${plan.price}/month.\n\nClick OK to proceed to payment (demo mode).\nIn production, Stripe would process the card.`)) {
+            // mock payment success
+            setUserSubscription(currentEmail, planId, "active");
+            alert(`✅ Success! You are now subscribed to ${plan.name}. Welcome to Jb's Laundry!`);
+            showDashboard();
+        }
+    }
+
+    function showDashboard() {
+        const currentEmail = getCurrentUser();
+        if (!currentEmail) {
+            showLoginForm();
+            return;
+        }
+        const subscription = getUserSubscription(currentEmail);
+        const container = document.getElementById("mainContent");
+        let subHtml = "";
+        if (subscription && subscription.status === "active") {
+            const plan = PLANS[subscription.planId];
+            subHtml = `
+                <div class="subscription-card">
+                    <div><strong>${plan.name}</strong> - $${plan.price}/month</div>
+                    <div><span class="status-active">ACTIVE</span></div>
+                    <div>Next billing: ${new Date(subscription.nextBilling).toLocaleDateString()}</div>
+                    <button id="cancelSubBtn" class="small-btn">Cancel Plan</button>
+                </div>
+            `;
+        } else if (subscription && subscription.status === "cancelled") {
+            subHtml = `
+                <div class="subscription-card">
+                    <div><strong>Previous plan: ${PLANS[subscription.planId]?.name}</strong></div>
+                    <div><span class="status-cancelled">CANCELLED</span></div>
+                    <div>Your membership ended. <button id="resubBtn" class="small-btn">Re-subscribe</button></div>
+                </div>
+            `;
+        } else {
+            subHtml = `<div style="background:#ffe8e0; padding:1rem; border-radius: 20px;">❌ No active subscription. <a href="#" id="browsePlansLink">Browse our monthly plans</a></div>`;
+        }
+
+        container.innerHTML = `
+            <div class="dashboard">
+                <h2><i class="fas fa-user-circle"></i> My Dashboard</h2>
+                <p>Welcome back, ${currentEmail}!</p>
+                <h3>📋 Current Subscription</h3>
+                ${subHtml}
+                <hr style="margin: 1.5rem 0;">
+                <h3>🔄 Payment History (demo)</h3>
+                <p>Your last payment was successfully processed via Stripe test mode.</p>
+                <button id="homeFromDashBtn" class="small-btn" style="background:#2a9d8f;">🏠 Back to Homepage</button>
+            </div>
+        `;
+        if (document.getElementById("cancelSubBtn")) {
+            document.getElementById("cancelSubBtn").addEventListener("click", () => {
+                if (confirm("Cancel your monthly washing plan?")) {
+                    cancelSubscription(currentEmail);
+                    alert("Subscription cancelled. You can resubscribe anytime.");
+                    showDashboard();
+                }
+            });
+        }
+        if (document.getElementById("resubBtn")) {
+            document.getElementById("resubBtn").addEventListener("click", () => showHomepage());
+        }
+        if (document.getElementById("browsePlansLink")) {
+            document.getElementById("browsePlansLink").addEventListener("click", (e) => {
+                e.preventDefault();
+                showHomepage();
+            });
+        }
+        if (document.getElementById("homeFromDashBtn")) {
+            document.getElementById("homeFromDashBtn").addEventListener("click", () => showHomepage());
+        }
+    }
+
+    function showLoginForm() {
+        const container = document.getElementById("mainContent");
+        container.innerHTML = `
+            <div class="form-box">
+                <h2>Login to Jb's Laundry</h2>
+                <input type="email" id="loginEmail" placeholder="Email address" autocomplete="email">
+                <input type="password" id="loginPassword" placeholder="Password">
+                <button id="doLoginBtn">Login</button>
+                <p style="margin-top:1rem;">Don't have an account? <a href="#" id="gotoRegister">Sign up</a></p>
+                <p style="font-size:0.8rem; margin-top:1rem;">Demo: demo@jb.com / demo123</p>
+            </div>
+        `;
+        document.getElementById("doLoginBtn").addEventListener("click", () => {
+            const email = document.getElementById("loginEmail").value.trim();
+            const pass = document.getElementById("loginPassword").value;
+            const users = getUsers();
+            const user = users.find(u => u.email === email && u.password === pass);
+            if (user) {
+                setCurrentUser(email);
+                renderNav();
+                showDashboard();
+            } else {
+                alert("Invalid credentials. Try demo@jb.com / demo123");
+            }
+        });
+        document.getElementById("gotoRegister")?.addEventListener("click", (e) => {
+            e.preventDefault();
+            showRegisterForm();
+        });
+    }
+
+    function showRegisterForm() {
+        const container = document.getElementById("mainContent");
+        container.innerHTML = `
+            <div class="form-box">
+                <h2>Create Account</h2>
+                <input type="text" id="regName" placeholder="Full Name">
+                <input type="email" id="regEmail" placeholder="Email address">
+                <input type="password" id="regPassword" placeholder="Password">
+                <button id="doRegisterBtn">Sign Up</button>
+                <p>Already have an account? <a href="#" id="gotoLogin">Login</a></p>
+            </div>
+        `;
+        document.getElementById("doRegisterBtn").addEventListener("click", () => {
+            const name = document.getElementById("regName").value.trim();
+            const email = document.getElementById("regEmail").value.trim();
+            const password = document.getElementById("regPassword").value;
+            if (!name || !email || !password) {
+                alert("Please fill all fields");
+                return;
+            }
+            const users = getUsers();
+            if (users.find(u => u.email === email)) {
+                alert("User already exists. Please login.");
+                showLoginForm();
+                return;
+            }
+            users.push({ email, password, name });
+            saveUsers(users);
+            setCurrentUser(email);
+            renderNav();
+            alert("Account created! You can now subscribe to a plan.");
+            showHomepage();
+        });
+        document.getElementById("gotoLogin")?.addEventListener("click", (e) => {
+            e.preventDefault();
+            showLoginForm();
+        });
+    }
+
+    function logout() {
+        setCurrentUser(null);
+        renderNav();
+        showHomepage();
+    }
+
+    // initial load
+    function init() {
+        renderNav();
+        const current = getCurrentUser();
+        if (current) {
+            showDashboard();
+        } else {
+            showHomepage();
+        }
+    }
+
+    init();
+</script>
+</body>
+</html>
