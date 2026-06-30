@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Matthieu Banks — Software Developer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,500&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="portfolio.css">
+</head>
+<body>
+
+<nav>
+  <a class="brand" href="#hero">MB</a>
+  <div id="nav-links">
+    <a href="#about">About</a>
+    <a href="#experience">Experience</a>
+    <a href="#skills">Skills</a>
+    <a href="#contact">Contact</a>
+  </div>
+</nav>
+
+<main class="scroller">
+
+  <!-- HERO -->
+  <section id="hero" class="panel hero">
+    <div class="container hero-grid">
+      <div class="hero-copy">
+        <p class="eyebrow">Software Developer · Chicago, IL</p>
+        <h1>Matthieu Banks</h1>
+        <p class="hero-text">
+          I build back-end systems and clean, usable software — shaped by
+          years spent solving problems for people in person before I ever
+          wrote a line of code for them.
+        </p>
+        <div class="hero-buttons">
+          <a href="#experience" class="btn primary">See my path</a>
+          <a href="#contact" class="btn secondary">Get in touch</a>
+        </div>
+      </div>
+      <div class="hero-mark" aria-hidden="true">
+        <span>DePaul University</span>
+        <span class="hero-mark-divider">·</span>
+        <span>B.S. Computer Science</span>
+      </div>
+    </div>
+    <div class="scroll-cue" aria-hidden="true"><span></span></div>
+  </section>
+
+  <!-- ABOUT -->
+  <section id="about" class="panel about">
+    <div class="container">
+      <p class="section-label">01 — About</p>
+      <h2>From the floor to the back end.</h2>
+      <p class="about-text">
+        With experience in customer service, I've built a foundation in
+        communication, problem-solving, and teamwork. My time in sales,
+        customer service, and data analysis has sharpened my collaboration
+        and time management — and now I'm applying that same hands-on
+        instinct to software development and algorithms. My long-term goal
+        is to put my degree to work as a back-end engineer, building systems
+        that hold up the way I learned to hold up a sales floor, a transport
+        schedule, or an event night.
+      </p>
+      <div class="about-facts">
+        <div class="fact">
+          <span class="fact-label">Education</span>
+          <span class="fact-value">DePaul University, Chicago, IL</span>
+          <span class="fact-sub">B.S. Computer Science · Music Studies &amp; Urban Geography Planning minor · GPA 3.0 · Sep 2023 – May 2027</span>
+        </div>
+        <div class="fact">
+          <span class="fact-label">Languages</span>
+          <span class="fact-value">English, French, Haitian Creole</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- EXPERIENCE — signature timeline -->
+  <section id="experience" class="panel experience">
+    <div class="container">
+      <p class="section-label">02 — Experience</p>
+      <h2>The path so far.</h2>
+
+      <ol class="path">
+
+        <li class="stop">
+          <div class="stop-marker"></div>
+          <div class="stop-content">
+            <div class="stop-head">
+              <h3>Data Analyst Manager</h3>
+              <span class="stop-dates">Dec 2025 — Present</span>
+            </div>
+            <p class="stop-org">Insurance Center</p>
+            <ul>
+              <li>Manage client data through a web client relationship management system.</li>
+              <li>Build new management system tools to streamline search, sales, and analysis processes.</li>
+              <li>Process sales and representatives' sales data; plan and execute daily programming in the office.</li>
+            </ul>
+          </div>
+        </li>
+
+        <li class="stop">
+          <div class="stop-marker"></div>
+          <div class="stop-content">
+            <div class="stop-head">
+              <h3>Patient Transporter</h3>
+              <span class="stop-dates">Jul 2025 — Dec 2025</span>
+            </div>
+            <p class="stop-org">UChicago Hospital</p>
+            <ul>
+              <li>Transported patients between rooms and appointments.</li>
+              <li>Collaborated with team members and nurses to complete transport jobs.</li>
+              <li>Moved specimens and equipment to high-demand areas of the hospital.</li>
+            </ul>
+          </div>
+        </li>
+
+        <li class="stop">
+          <div class="stop-marker"></div>
+          <div class="stop-content">
+            <div class="stop-head">
+              <h3>Team Member</h3>
+              <span class="stop-dates">May 2023 — Dec 2024</span>
+            </div>
+            <p class="stop-org">Walgreens</p>
+            <ul>
+              <li>Maintained the store by restocking, cleaning, and organizing the shopping environment.</li>
+              <li>Collaborated with the team to improve customer experience and overall store performance.</li>
+              <li>Trained new employees to work at similar or greater standards.</li>
+            </ul>
+          </div>
+        </li>
+
+        <li class="stop">
+          <div class="stop-marker"></div>
+          <div class="stop-content">
+            <div class="stop-head">
+              <h3>Warehouse Associate</h3>
+              <span class="stop-dates">Jan 2023 — Apr 2023</span>
+            </div>
+            <p class="stop-org">Amazon</p>
+            <ul>
+              <li>Collaborated with team members to reach sorting quotas.</li>
+              <li>Navigated company software to complete tasks successfully.</li>
+              <li>Operated heavy equipment and machinery.</li>
+            </ul>
+          </div>
+        </li>
+
+        <li class="stop">
+          <div class="stop-marker"></div>
+          <div class="stop-content">
+            <div class="stop-head">
+              <h3>Team Associate</h3>
+              <span class="stop-dates">Jan 2022 — Mar 2023</span>
+            </div>
+            <p class="stop-org">Jamba</p>
+            <ul>
+              <li>Maintained the front and back of store through restocking, cleaning, and organizing.</li>
+              <li>Collaborated with the team to provide a satisfactory customer experience.</li>
+              <li>Made smoothies, drinks, and food to order.</li>
+            </ul>
+          </div>
+        </li>
+
+        <li class="stop">
+          <div class="stop-marker"></div>
+          <div class="stop-content">
+            <div class="stop-head">
+              <h3>Assistant Event Manager</h3>
+              <span class="stop-dates">Aug 2020 — Mar 2023</span>
+            </div>
+            <p class="stop-org">C'est Chic</p>
+            <ul>
+              <li>Assisted in set-up and take-down of event spaces.</li>
+              <li>Managed small teams efficiently toward a common goal.</li>
+              <li>Created detailed itineraries, informative pamphlets, and event decoration.</li>
+            </ul>
+          </div>
+        </li>
+
+      </ol>
+    </div>
+  </section>
+
+  <!-- SKILLS -->
+  <section id="skills" class="panel skills">
+    <div class="container">
+      <p class="section-label">03 — Skills</p>
+      <h2>What I bring to the build.</h2>
+
+      <div class="skill-grid">
+        <div class="skill-card">
+          <h3>Technical</h3>
+          <div class="tag-row">
+            <span class="tag">HTML/CSS</span>
+            <span class="tag">JavaScript</span>
+            <span class="tag">SQL</span>
+            <span class="tag">macOS</span>
+            <span class="tag">Microsoft 365</span>
+          </div>
+        </div>
+
+        <div class="skill-card">
+          <h3>Practical</h3>
+          <div class="tag-row">
+            <span class="tag">Customer Service</span>
+            <span class="tag">Sales</span>
+            <span class="tag">Problem-Solving</span>
+            <span class="tag">Team Collaboration</span>
+          </div>
+        </div>
+
+        <div class="skill-card">
+          <h3>Languages</h3>
+          <div class="tag-row">
+            <span class="tag">English</span>
+            <span class="tag">French</span>
+            <span class="tag">Haitian Creole</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact" class="panel contact">
+    <div class="container contact-grid">
+      <div>
+        <p class="section-label">04 — Contact</p>
+        <h2>Let's talk.</h2>
+        <p class="contact-text">
+          Open to back-end engineering opportunities and conversations about
+          building thoughtful software. Reach out any time.
+        </p>
+      </div>
+      <div class="contact-links">
+        <a href="mailto:matthieuabanks@gmail.com" class="contact-link">
+          <span class="contact-link-label">Email</span>
+          <span class="contact-link-value">matthieuabanks@gmail.com</span>
+        </a>
+        <a href="tel:+17084758205" class="contact-link">
+          <span class="contact-link-label">Phone</span>
+          <span class="contact-link-value">(708) 475-8205</span>
+        </a>
+        <a href="https://github.com/mattsstuff04/portfolio/tree/main" target="_blank" rel="noopener" class="contact-link">
+          <span class="contact-link-label">GitHub</span>
+          <span class="contact-link-value">mattsstuff04 / portfolio</span>
+        </a>
+      </div>
+    </div>
+    <footer>© 2026 Matthieu Banks</footer>
+  </section>
+
+</main>
+
+<script>
+  // Active nav link highlighting based on visible section
+  const sections = document.querySelectorAll('.panel');
+  const navLinks = document.querySelectorAll('#nav-links a');
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const id = entry.target.getAttribute('id');
+        navLinks.forEach(link => {
+          link.classList.toggle('active', link.getAttribute('href') === '#' + id);
+        });
+      }
+    });
+  }, { threshold: 0.6 });
+
+  sections.forEach(section => observer.observe(section));
+</script>
+
+</body>
+</html>
